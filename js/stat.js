@@ -11,6 +11,7 @@ var BAR_WIDTH = 40;
 var SIGN_Y = BAR_Y + GAP * 2;
 var SIGN_Y_TOP = BAR_Y - GAP;
 var BAR_GAP = BAR_WIDTH + GAP;
+var OFFSET_LEFT = BAR_WIDTH;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -29,6 +30,26 @@ var getMaxElement = function (arr) {
   return maxElem;
 };
 
+var getRandomColor = function (ctx, name) {
+  if (name === 'Вы') {
+    ctx.fillStyle = 'red';
+  } else {
+    ctx.fillStyle = 'hsl(240,' + Math.floor(Math.random() * 100) + '%,' + Math.floor(Math.random() * 100) + '%' + ')';
+  }
+};
+
+var renderBar = function (ctx, x, y, width, height) {
+  ctx.fillRect(x, y, width, height);
+};
+
+var renderText = function (ctx, text, x, y) {
+  if (typeof (text) === 'number') {
+    ctx.fillText(Math.floor(text), x, y);
+  } else {
+    ctx.fillText(text, x, y);
+  }
+};
+
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0,0,0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
@@ -42,16 +63,10 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-
-    if (players[i] === 'Вы') {
-      ctx.fillStyle = 'red';
-    } else {
-      ctx.fillStyle = 'hsl(240,' + Math.floor(Math.random() * 100) + '%,' + Math.floor(Math.random() * 100) + '%' + ')';
-    }
-
-    ctx.fillText(players[i], CLOUD_X + GAP + (BAR_WIDTH + BAR_GAP) * i, SIGN_Y);
-    ctx.fillText(Math.floor(times[i]), CLOUD_X + GAP + (BAR_WIDTH + BAR_GAP) * i, (BAR_HEIGHT * times[i] / maxTime) + SIGN_Y_TOP);
-    ctx.fillRect(CLOUD_X + GAP + (BAR_WIDTH + BAR_GAP) * i, BAR_Y, BAR_WIDTH, BAR_HEIGHT * times[i] / maxTime);
+    getRandomColor(ctx, name);
+    renderText(ctx, players[i], CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, SIGN_Y);
+    renderText(ctx, times[i], CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, (BAR_HEIGHT * times[i] / maxTime) + SIGN_Y_TOP);
+    renderBar(ctx, CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, BAR_Y, BAR_WIDTH, BAR_HEIGHT * times[i] / maxTime);
   }
 };
 
