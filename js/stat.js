@@ -63,7 +63,7 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-    getRandomColor(ctx, players);
+    getRandomColor(ctx, players[i]);
     renderText(ctx, players[i], CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, SIGN_Y);
     renderText(ctx, times[i], CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, (BAR_HEIGHT * times[i] / maxTime) + SIGN_Y_TOP);
     renderBar(ctx, CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, BAR_Y, BAR_WIDTH, BAR_HEIGHT * times[i] / maxTime);
