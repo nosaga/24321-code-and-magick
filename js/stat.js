@@ -43,7 +43,7 @@ var renderBar = function (ctx, x, y, width, height) {
 };
 
 var renderText = function (ctx, text, x, y) {
-  if (typeof (text) === 'number') {
+  if (typeof text === 'number') {
     ctx.fillText(Math.floor(text), x, y);
   } else {
     ctx.fillText(text, x, y);
@@ -63,7 +63,7 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
-    getRandomColor(ctx, name);
+    getRandomColor(ctx, players);
     renderText(ctx, players[i], CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, SIGN_Y);
     renderText(ctx, times[i], CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, (BAR_HEIGHT * times[i] / maxTime) + SIGN_Y_TOP);
     renderBar(ctx, CLOUD_X + GAP + OFFSET_LEFT + (BAR_WIDTH + BAR_GAP) * i, BAR_Y, BAR_WIDTH, BAR_HEIGHT * times[i] / maxTime);
