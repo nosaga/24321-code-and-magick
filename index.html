@@ -82,7 +82,9 @@
         </div>
         <label>
           <input type="text" name="username"
-                 maxlength="25" required
+                 pattern=".{2,25}"
+                 title="Имя должно содержать не менее 2х и не более 25 символов"
+                 required
                  class="setup-user-name" value="Синий Пендальф"/>
         </label>
       </div>
